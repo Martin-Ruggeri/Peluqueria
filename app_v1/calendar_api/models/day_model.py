@@ -1,5 +1,5 @@
 from django.db import models
-from schedule_model import Schedule
+from .schedule_model import Schedule
 
 class Day(models.Model):
   id_day = models.AutoField(primary_key=True)

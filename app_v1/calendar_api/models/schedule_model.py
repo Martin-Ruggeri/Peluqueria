@@ -1,5 +1,5 @@
 from django.db import models
-from calendar_model import Calendar
+from .calendar_model import Calendar
 
 class Schedule(models.Model):
   id_schedule = models.AutoField(primary_key=True)

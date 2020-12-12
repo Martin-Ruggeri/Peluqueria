@@ -1,6 +1,6 @@
 from django.db import models
-from detail_calendar_model import DetailCalendar
-from state_turn_model import StateTurn
+from .detail_calendar_model import DetailCalendar
+from .state_turn_model import StateTurn
 
 class Turn(models.Model):
   id_turn = models.AutoField(primary_key=True)
