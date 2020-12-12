@@ -16,4 +16,4 @@ class DetailCalendar(models.Model):
     ordering = ['-created']
   
   def __str__(self):
-    return self.date
+    return self.date.strftime('%d/%m/%Y')

@@ -5,7 +5,7 @@ class Day(models.Model):
   id_day = models.AutoField(primary_key=True)
   name_day = models.CharField(max_length=10, unique=True)
   
-  schedule = models.ForeignKey (Schedule, on_delete=models.PROTECT)
+  schedule = models.ForeignKey (Schedule, on_delete=models.PROTECT, null=True, blank=True)
   
   created = models.DateTimeField(auto_now_add=True)
   up_date = models.DateTimeField(auto_now=True)
