@@ -12,7 +12,8 @@ class Schedule(models.Model):
   created = models.DateTimeField(auto_now_add=True)
   up_date = models.DateTimeField(auto_now=True)
   enabled = models.BooleanField(default=True)
-  
+
+    
   class Meta:
     verbose_name = "Horario"
     ordering = ['-created']
