@@ -40,17 +40,18 @@ def validate_turn_busy(self,data):
   print ('Val')
   
 def validate_interposed_schedule(self,data):
+  id = self.instance.id_schedule
   start_time = data.get('start_time_schedule')
   end_time = data.get('end_time_schedule')
   days = data.get('days')
   calendar = data.get('calendar')
   
-  schedules = Schedule.objects.filter(calendar = calendar).exclude(start_time_schedule = start_time, end_time_schedule = end_time)
+  schedules = Schedule.objects.filter(calendar = calendar).exclude(id_schedule = id)
   for schedule in schedules:
     # Si el schedule coincide en algun dia se verifica sino continua con el siguiente
     make_schedule = False
-    for day_2 in schedule.days.all():
-      if (day_2 in days):
+    for day in schedule.days.all():
+      if (day in days):
         make_schedule = True
         break
     if (not make_schedule):
