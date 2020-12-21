@@ -1,5 +1,6 @@
 from django.db import models
 from .calendar_model import Calendar
+from .day_model import Day
 
 class Schedule(models.Model):
   id_schedule = models.AutoField(primary_key=True)
@@ -8,11 +9,11 @@ class Schedule(models.Model):
   interval_turn = models.IntegerField()
   
   calendar = models.ForeignKey(Calendar, on_delete=models.PROTECT)
-  
+  days = models.ManyToManyField (Day)
+
   created = models.DateTimeField(auto_now_add=True)
   up_date = models.DateTimeField(auto_now=True)
   enabled = models.BooleanField(default=True)
-
     
   class Meta:
     verbose_name = "Horario"
