@@ -13,7 +13,7 @@ class DetailCalendar(models.Model):
   
   class Meta:
     verbose_name = "Detalle Agenda"
-    ordering = ['-created']
+    ordering = ['-date']
   
   def __str__(self):
     return self.date.strftime('%d/%m/%Y')
