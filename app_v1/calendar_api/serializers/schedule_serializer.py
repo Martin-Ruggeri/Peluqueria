@@ -21,14 +21,6 @@ class ScheduleSerializer(serializers.ModelSerializer):
     if (interval_turn < 14):
       errors.update({'interval_turn': 'El intervalo de cada turno debe ser al menos de 15 minutos'})  
     
-#    if (self.context.get('request').method == 'POST'):
-#      # validate POST
-#      print ('POST')  
-    
-#    if (self.context.get('request').method in ['PUT', 'PATCH']):
-#      # validate put o patch
-#      print ('PUT o PATCH')
-    
     # Validar si existe otro horario con el que se interponga
     errors.update(validate_interposed_schedule(self,data))
     
@@ -39,27 +31,26 @@ class ScheduleSerializer(serializers.ModelSerializer):
   
   
   def validate_delete(self,instance):
-    data = {}
+    data = {}      
     data['start_time_schedule'] = instance.start_time_schedule
     data['end_time_schedule'] = instance.end_time_schedule
     data['interval_turn'] = instance.interval_turn
     data['calendar'] = instance.calendar
     data['days'] = instance.days.all()
-  
+    
     errors = {}
-  
+    
     errors.update(validate_turn_busy(self, data))
-  
+    
     if (len(errors) > 0):
       trows_error(errors)
   
   
   class Meta:
     model = Schedule
-    fields = ['id_schedule', 'start_time_schedule', 'end_time_schedule', 'interval_turn', 'calendar', 'days']
-    
-    
-  
+    fields = ['id_turn', 'start_time_turn', 'end_time_turn', 'interval_turn', 'calendar', 'days']
+
+
 def validate_turn_busy(self,data):
   id = self.instance.id_schedule
   start_time = data.get('start_time_schedule')
@@ -69,7 +60,10 @@ def validate_turn_busy(self,data):
   
   errors = {}
   
-  details_calendar = DetailCalendar.objects.filter(enabled = True, calendar=calendar, date__range = (date.today(), date.today() + timedelta(days = 50)))
+  start_date = date.today()                       # fecha inicio = hoy dia
+  end_date = date.today() + timedelta(days = 50)  # fecha fin    = hoy dia + x dias
+  details_calendar = DetailCalendar.objects.filter(enabled = True, calendar=calendar, date__range = (start_date, end_date) )
+  # Si el detail_calendar coincide en algun dia se verifica sino continua con el siguiente
   for detail_calendar in details_calendar:
     make_detail_calendar = False
     for day in days:
@@ -78,8 +72,8 @@ def validate_turn_busy(self,data):
         break
     if (not make_detail_calendar):
       continue
-    
-    turns = Turn.objects.filter(enabled=True, detail_calendar = detail_calendar)
+    # Se valida que no existan turnos futuros ocupados
+    turns = Turn.objects.filter(enabled=True, detail_calendar = detail_calendar, end_time_turn__range = (start_time, end_time) )
     for turn in turns:
       if (turn.state_turn.state_turn == 'Ocupado'):
         errors.update({f'turn {turn.id_turn}':f'Para poder continuar debe reprogramar el turno {turn.start_time_turn} - {turn.end_time_turn}'}) 
@@ -109,8 +103,8 @@ def validate_interposed_schedule(self,data):
     if ((start_time == schedule.start_time_schedule) or (start_time < schedule.start_time_schedule and end_time > schedule.start_time_schedule) or (start_time > schedule.start_time_schedule and start_time < schedule.end_time_schedule)):
       errors.update({f'schedule {schedule.id_schedule}':f'Se interpone con el horario {schedule.start_time_schedule} - {schedule.end_time_schedule}'})
   return errors
-    
-    
+
+
 def switch_dia(dia):
   sw = {
     'Monday': 'Lunes',
@@ -122,6 +116,7 @@ def switch_dia(dia):
     'Sunday': 'Domingo',
   }
   return sw.get(dia)
+
 
 def trows_error(errors):
   raise serializers.ValidationError(errors)

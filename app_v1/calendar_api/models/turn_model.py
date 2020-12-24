@@ -16,7 +16,7 @@ class Turn(models.Model):
   
   class Meta:
     verbose_name = "Turno"
-    ordering = ['-created']
+    ordering = ['detail_calendar' , 'start_time_turn']
   
   def __str__(self):
-    return f"{self.detail_calendar} -> {self.start_time_turn} - {self.end_time_turn}"
+    return f"{self.id_turn} - {self.detail_calendar} -> {self.start_time_turn} - {self.end_time_turn} -> {self.state_turn}"
