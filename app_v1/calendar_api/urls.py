@@ -24,5 +24,5 @@ urlpatterns = [
     path('turn/<fecha:date>', turn_views.TurnList.as_view()),           # Lista de turnos disponibles en la fecha pasada por URL
     path('turn/<int:pk>', turn_views.TurnDetail.as_view()),             # Detalle del turno pasado por URL
     path('request-turn/<int:pk>', turn_views.TurnRequest.as_view()),    # Solicitar turno (Cambia de estado Libre a Ocupado)
-    path('cancel-turn/<int:pk>', turn_views.TurnCancel.as_view()),     # Cancelar turno (Cambia de estado Ocupado a Libre)
+    path('cancel-turn/<int:pk>', turn_views.TurnCancel.as_view()),      # Cancelar turno (Cambia de estado Ocupado a Libre)
 ]
