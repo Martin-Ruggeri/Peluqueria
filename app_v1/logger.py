@@ -1,6 +1,6 @@
 import logging
 
-LOG_FOLDER = '/home/martin/Documentos/Peluqueria_log/app_v1/'
+LOG_FOLDER = 'C:/Users/marugger/Documents/Programas\Python/Peluqueria/Logs/'
 LOG_FILE = 'logs.xls'
 LOG = LOG_FOLDER + LOG_FILE
 
