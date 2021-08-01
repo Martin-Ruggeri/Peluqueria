@@ -10,9 +10,10 @@ target/
 .vscode/
 
 # Python
-_pycache_
+*_pycache_*
 */_pycache_
 _pycache_/*
+*/_pycache_/*
 .pyc
 .sqlite3
 
