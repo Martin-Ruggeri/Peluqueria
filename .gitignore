@@ -15,4 +15,5 @@ _pycache_
 
 # Logger
 .log
+.xls
 Logs/*
