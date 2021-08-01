@@ -18,3 +18,16 @@ _pycache_/*
 .log
 .xls
 Logs/*
+
+# Carpeta de pruebas
+Pruebas/*
+pruebas/*
+
+# Entorno virtual
+env/*
+
+# Diagramas
+diagrama/*
+diagramas/*
+Diagrama/*
+Diagramas/*
