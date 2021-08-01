@@ -1,0 +1,18 @@
+.[a-z]/
+.svn/*
+.svn/wc.db
+.classpath
+.project
+.settings/
+target/
+*.db
+.vscode/settings.json
+.vscode/
+
+# Python
+_pycache_
+.sqlite3
+
+# Logger
+.log
+Logs/*
