@@ -1,13 +1,10 @@
-.[a-z]/
-.svn/*
-.svn/wc.db
-.classpath
-.project
-.settings/
-target/
-*.db
+# cualquier carpeta iniciada en '.'
+.[a-z]/*
+
+# Visual Studio
+.vscode
+.vscode/*
 .vscode/settings.json
-.vscode/
 
 # Python
 *_pycache_*
